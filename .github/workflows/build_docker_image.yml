@@ -50,8 +50,8 @@ jobs:
           images: |
             name=ghcr.io/${{ github.repository }},enable=true
             name=${{ vars.DOCKERHUB_IMAGE_NAME || 'default-image' }},enable=${{ vars.DOCKERHUB_IMAGE_NAME != '' }}
-          # generate Docker tags based on the following events/attributes
-          #   nightly, master, pr-2, 1.2.3, 1.2, 1
+            generate Docker tags based on the following events/attributes
+             nightly, master, pr-2, 1.2.3, 1.2, 1
           tags: |
             type=match,pattern=^v(\d{8}-\d+)$,group=1
             type=match,pattern=^v(\d{8})-\d+$,group=1
