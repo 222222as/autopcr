@@ -47,8 +47,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: |
-           ${{ github.repository }}             
+          images: |         
             name=ghcr.io/${{ github.repository }},enable=true
             name=${{ vars.DOCKERHUB_IMAGE_NAME || 'default-image' }},enable=${{ vars.DOCKERHUB_IMAGE_NAME != '' }}
        #     generate Docker tags based on the following events/attributes
