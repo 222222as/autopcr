@@ -793,6 +793,8 @@ class pcrclient(apiclient):
                 self.data.jewel.jewel -= tot
         elif draw_type == eGachaDrawType.Ticket:
             self.data.set_inventory(ticket_item or db.gacha_single_ticket, current_cost_num - 1)
+        elif draw_type == eGachaDrawType.TicketMultiPull10:
+            self.data.set_inventory(ticket_item, current_cost_num - 1)
         elif draw_type == eGachaDrawType.Temp_Ticket_10:
             ticket = next((eInventoryType.Item, temp_ticket) for temp_ticket in db.get_gacha_temp_ticket() if self.data.get_inventory((eInventoryType.Item, temp_ticket)))
             self.data.set_inventory(ticket, current_cost_num - 1)
@@ -1062,6 +1064,17 @@ class pcrclient(apiclient):
 
     async def get_shop_item_list(self):
         req = ShopItemListRequest()
+        return await self.request(req)
+
+    async def profile_picture_frame_shop_index(self):
+        req = ProfilePictureFrameShopIndexRequest()
+        return await self.request(req)
+
+    async def profile_picture_frame_shop_buy(self, lineup_type: int, slot_id: int, buy_count: int):
+        req = ProfilePictureFrameShopBuyRequest()
+        req.lineup_type = lineup_type
+        req.slot_id = slot_id
+        req.buy_count = buy_count
         return await self.request(req)
 
     async def shop_buy(self, shop_id: int, slot_id: int, number: int, total_price: int):
